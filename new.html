@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nikhil Explain House 🎬</title>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>New Movies - Nikhil Explain House</title>
   <link rel="icon" href="favicon.ico"/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/>
   <style>
@@ -20,30 +19,15 @@
     .search-bar{display:flex;align-items:center;background:var(--surface);border:1px solid #ffffff15;border-radius:24px;padding:6px 16px;gap:8px}
     .search-bar input{background:none;border:none;outline:none;color:var(--text);font-family:'Poppins',sans-serif;font-size:.85rem;width:180px}
     .search-bar input::placeholder{color:var(--muted)}
-    .hero{position:relative;height:420px;display:flex;align-items:flex-end;padding:48px 40px;overflow:hidden}
-    .hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1a0000 0%,#0a0a1a 50%,#000d1a 100%)}
-    .hero-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 60% 40%,#e5091422 0%,transparent 70%)}
-    .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:40px 40px}
-    .hero-content{position:relative;z-index:2;max-width:600px}
-    .hero-tag{display:inline-block;background:var(--red);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:2px;margin-bottom:14px}
-    .hero h1{font-family:'Bebas Neue',sans-serif;font-size:3.8rem;line-height:1;letter-spacing:2px;margin-bottom:14px}
-    .hero p{color:#bbb;font-size:.9rem;line-height:1.6;margin-bottom:24px;max-width:440px}
-    .hero-btns{display:flex;gap:12px}
-    .btn-primary{background:var(--red);color:#fff;border:none;padding:12px 28px;border-radius:4px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;letter-spacing:1px;transition:background .2s,transform .1s}
-    .btn-primary:hover{background:#ff0f1a;transform:scale(1.02)}
-    .btn-ghost{background:#ffffff15;color:#fff;border:1px solid #ffffff25;padding:12px 28px;border-radius:4px;font-family:'Poppins',sans-serif;font-weight:600;font-size:.85rem;cursor:pointer;letter-spacing:1px;transition:background .2s}
-    .btn-ghost:hover{background:#ffffff25}
-    .section{padding:40px 40px 20px}
-    .section-header{display:flex;align-items:center;gap:14px;margin-bottom:24px}
-    .section-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:2px}
-    .section-line{flex:1;height:1px;background:linear-gradient(90deg,#ffffff20,transparent)}
-    .section-badge{font-size:.7rem;font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase;border:1px solid #f5c51840;padding:3px 10px;border-radius:20px}
-    .genre-pills{display:flex;gap:10px;flex-wrap:wrap;padding:0 40px 32px}
-    .pill{background:var(--surface);border:1px solid #ffffff15;color:var(--muted);padding:7px 20px;border-radius:20px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s}
-    .pill:hover,.pill.active{background:var(--red);color:#fff;border-color:var(--red)}
+    .page-header{padding:48px 40px 32px}
+    .new-tag{display:inline-block;background:var(--red);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:2px;margin-bottom:12px;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+    .page-header h1{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:3px}
+    .page-header h1 span{color:var(--red)}
+    .page-header p{color:var(--muted);margin-top:8px;font-size:.9rem}
     .movie-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px;padding:0 40px 48px}
-    .movie-card{background:var(--card-bg);border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .25s,box-shadow .25s;border:1px solid #ffffff08;position:relative}
-    .movie-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 20px 50px #e5091430;border-color:#e5091440;z-index:10}
+    .movie-card{background:var(--card-bg);border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .25s,box-shadow .25s;border:1px solid #ffffff08}
+    .movie-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 20px 50px #e5091430;border-color:#e5091440;z-index:10;position:relative}
     .movie-thumb{position:relative;aspect-ratio:2/3;overflow:hidden}
     .movie-thumb-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem}
     .play-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .25s}
@@ -51,11 +35,15 @@
     .play-btn{width:56px;height:56px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 24px #e50914aa}
     .play-btn svg{margin-left:4px}
     .free-badge{position:absolute;top:10px;left:10px;background:#00c853;color:#fff;font-size:.65rem;font-weight:700;letter-spacing:1px;padding:3px 8px;border-radius:3px}
+    .new-badge{position:absolute;top:10px;right:10px;background:var(--red);color:#fff;font-size:.65rem;font-weight:700;letter-spacing:1px;padding:3px 8px;border-radius:3px}
     .movie-info{padding:12px 14px 14px}
     .movie-title{font-size:.9rem;font-weight:700;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .movie-meta{display:flex;align-items:center;gap:10px;font-size:.75rem;color:var(--muted)}
     .rating{color:var(--gold);font-weight:600}
     .movie-genre{font-size:.7rem;color:var(--muted);margin-top:5px}
+    .empty-state{text-align:center;padding:80px 40px;color:var(--muted);grid-column:1/-1}
+    .empty-state .icon{font-size:4rem;margin-bottom:16px}
+    .empty-state h2{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;margin-bottom:8px}
     .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(6px)}
     .modal-overlay.open{opacity:1;pointer-events:all}
     .modal{background:var(--card-bg);border-radius:12px;width:100%;max-width:760px;border:1px solid #ffffff15;overflow:hidden;transform:scale(.95);transition:transform .3s;box-shadow:0 40px 100px #000}
@@ -75,51 +63,30 @@
     .footer-logo span{color:var(--red)}
     .footer-links{display:flex;gap:20px}
     .footer-links a{font-size:.75rem;color:var(--muted);text-decoration:none}
-    .footer-links a:hover{color:var(--text)}
     @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
     .movie-card{animation:fadeUp .4s ease both}
-    .movie-card:nth-child(1){animation-delay:.05s}.movie-card:nth-child(2){animation-delay:.10s}.movie-card:nth-child(3){animation-delay:.15s}.movie-card:nth-child(4){animation-delay:.20s}.movie-card:nth-child(5){animation-delay:.25s}.movie-card:nth-child(6){animation-delay:.30s}
-    @media(max-width:700px){nav{padding:14px 20px}.nav-links{display:none}.hero{padding:32px 20px;height:auto;min-height:300px}.hero h1{font-size:2.4rem}.section,.movie-grid,.genre-pills{padding-left:20px;padding-right:20px}footer{flex-direction:column;text-align:center}}
+    @media(max-width:700px){nav{padding:14px 20px}.nav-links{display:none}.page-header,.movie-grid{padding-left:20px;padding-right:20px}footer{flex-direction:column;text-align:center}}
   </style>
 </head>
 <body>
 <nav>
   <a href="index.html" class="logo">Nikhil <span>Explain</span> House</a>
   <ul class="nav-links">
-    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="index.html">Home</a></li>
     <li><a href="movies.html">Movies</a></li>
-    <li><a href="new.html">New</a></li>
+    <li><a href="new.html" class="active">New</a></li>
     <li><a href="about.html">About</a></li>
   </ul>
   <div class="search-bar">
     <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input type="text" placeholder="Search movies..." id="searchInput" oninput="filterMovies()"/>
+    <input type="text" placeholder="Search movies..." readonly onclick="window.location='movies.html'"/>
   </div>
 </nav>
-<div class="hero">
-  <div class="hero-bg"></div><div class="hero-grid"></div>
-  <div class="hero-content">
-    <div class="hero-tag">🎬 Free Movies</div>
-    <h1>Watch, Enjoy &<br/>It's Totally Free</h1>
-    <p>Welcome to Nikhil Explain House! All movies are available for free on YouTube. No subscription, no payment required.</p>
-    <div class="hero-btns">
-      <button class="btn-primary" onclick="document.querySelector('.movie-grid').scrollIntoView({behavior:'smooth'})">▶ Browse Movies</button>
-      <button class="btn-ghost" onclick="document.getElementById('searchInput').focus()">🔍 Search</button>
-    </div>
-  </div>
+<div class="page-header">
+  <div class="new-tag">🔥 New Arrivals</div>
+  <h1>Latest <span>Movies</span></h1>
+  <p>The newest and latest movies just added to our collection</p>
 </div>
-<div class="section"><div class="section-header"><span class="section-title">Browse by Genre</span><div class="section-line"></div></div></div>
-<div class="genre-pills">
-  <div class="pill active" onclick="filterByGenre('All',this)">🌟 All</div>
-  <div class="pill" onclick="filterByGenre('Action',this)">💥 Action</div>
-  <div class="pill" onclick="filterByGenre('Comedy',this)">😂 Comedy</div>
-  <div class="pill" onclick="filterByGenre('Drama',this)">🎭 Drama</div>
-  <div class="pill" onclick="filterByGenre('Thriller',this)">🔥 Thriller</div>
-  <div class="pill" onclick="filterByGenre('Horror',this)">👻 Horror</div>
-  <div class="pill" onclick="filterByGenre('Romance',this)">❤️ Romance</div>
-  <div class="pill" onclick="filterByGenre('Family',this)">👨‍👩‍👧 Family</div>
-</div>
-<div class="section"><div class="section-header"><span class="section-title">All Movies</span><div class="section-line"></div><span class="section-badge">Free on YouTube</span></div></div>
 <div class="movie-grid" id="movieGrid"></div>
 <div class="modal-overlay" id="modal" onclick="closeModal(event)">
   <div class="modal">
@@ -134,22 +101,19 @@
 <footer>
   <div class="footer-logo">Nikhil <span>Explain</span> House</div>
   <div class="footer-links"><a href="privacy-policy.html">Privacy Policy</a><a href="about.html">About</a></div>
-  <div style="font-size:.75rem;color:var(--muted)">All movies are free on YouTube 🎬</div>
+  <div style="font-size:.75rem;color:var(--muted)">Free Movies 🎬</div>
 </footer>
 <script src="movies-data.js"></script>
 <script>
-  let activeGenre='All',searchTerm='';
-  function renderMovies(data){
-    const f=data.filter(m=>(activeGenre==='All'||m.genre===activeGenre)&&m.title.toLowerCase().includes(searchTerm.toLowerCase()));
-    document.getElementById('movieGrid').innerHTML=f.length===0?`<div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:60px 0">No movies found 😕</div>`:f.map(m=>`<div class="movie-card" onclick="openModal(${m.id})"><div class="movie-thumb"><div class="movie-thumb-placeholder" style="background:${m.bg}">${m.emoji}</div><div class="play-overlay"><div class="play-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="free-badge">FREE</div></div><div class="movie-info"><div class="movie-title">${m.title}</div><div class="movie-meta"><span class="rating">⭐ ${m.rating}</span><span>${m.year}</span></div><div class="movie-genre">${m.genre}</div></div></div>`).join('');
+  function renderNewMovies(){
+    const newMovies=window.moviesData.filter(m=>m.isNew===true);
+    document.getElementById('movieGrid').innerHTML=newMovies.length===0?`<div class="empty-state"><div class="icon">🎬</div><h2>New Movies Coming Soon</h2><p>Check back soon for the latest additions</p></div>`:newMovies.map(m=>`<div class="movie-card" onclick="openModal(${m.id})"><div class="movie-thumb"><div class="movie-thumb-placeholder" style="background:${m.bg}">${m.emoji}</div><div class="play-overlay"><div class="play-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="free-badge">FREE</div><div class="new-badge">NEW</div></div><div class="movie-info"><div class="movie-title">${m.title}</div><div class="movie-meta"><span class="rating">⭐ ${m.rating}</span><span>${m.year}</span></div><div class="movie-genre">${m.genre}</div></div></div>`).join('');
   }
-  function filterByGenre(g,el){activeGenre=g;document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));el.classList.add('active');renderMovies(window.moviesData);}
-  function filterMovies(){searchTerm=document.getElementById('searchInput').value;renderMovies(window.moviesData);}
   function openModal(id){const m=window.moviesData.find(x=>x.id===id);document.getElementById('modalTitle').textContent=m.title;document.getElementById('modalDesc').textContent=m.desc;document.getElementById('modalTags').innerHTML=m.tags.map(t=>`<span class="modal-tag">${t}</span>`).join('');document.getElementById('modalVideo').innerHTML=`<iframe src="https://www.youtube.com/embed/${m.youtubeId}?autoplay=1" allow="autoplay; fullscreen" allowfullscreen></iframe>`;document.getElementById('modal').classList.add('open');document.body.style.overflow='hidden';}
   function closeModalBtn(){document.getElementById('modal').classList.remove('open');document.getElementById('modalVideo').innerHTML='';document.body.style.overflow='';}
   function closeModal(e){if(e.target===document.getElementById('modal'))closeModalBtn();}
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModalBtn();});
-  renderMovies(window.moviesData);
+  renderNewMovies();
 </script>
 </body>
 </html>
