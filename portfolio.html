@@ -1,636 +1,302 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rinkesh — Video Editor</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --glass: rgba(255,255,255,0.07);
-    --glass-border: rgba(255,255,255,0.15);
-    --glass-hover: rgba(255,255,255,0.13);
-    --accent: #a8edea;
-    --accent2: #fed6e3;
-    --text: #f0eee8;
-    --muted: rgba(240,238,232,0.45);
-    --bg1: #0a0c14;
-    --bg2: #0f1220;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rinkesh Ola | Video Editor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #050505; /* Deepest black for contrast */
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+        }
 
-  html { scroll-behavior: smooth; }
+        /* Ambient glowing background */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: radial-gradient(circle at 15% 50%, rgba(30, 58, 138, 0.15), transparent 25%),
+                        radial-gradient(circle at 85% 30%, rgba(76, 29, 149, 0.15), transparent 25%);
+        }
 
-  body {
-    background: var(--bg1);
-    color: var(--text);
-    font-family: 'DM Mono', monospace;
-    overflow-x: hidden;
-    min-height: 100vh;
-  }
+        /* Modern Bento Glass Card */
+        .bento-card {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            position: relative;
+        }
 
-  /* ── BACKGROUND ── */
-  .bg-orbs {
-    position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  }
-  .orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.25;
-    animation: drift 18s ease-in-out infinite alternate;
-  }
-  .orb1 { width: 600px; height: 600px; background: #1a6b8a; top: -150px; left: -150px; animation-delay: 0s; }
-  .orb2 { width: 500px; height: 500px; background: #6b1a8a; top: 40%; right: -100px; animation-delay: -6s; }
-  .orb3 { width: 400px; height: 400px; background: #1a8a6b; bottom: -100px; left: 30%; animation-delay: -12s; }
+        .bento-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 1.5rem;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
 
-  @keyframes drift {
-    from { transform: translate(0,0) scale(1); }
-    to   { transform: translate(40px, 30px) scale(1.08); }
-  }
+        .bento-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.1);
+        }
 
-  /* ── NOISE OVERLAY ── */
-  body::before {
-    content: '';
-    position: fixed; inset: 0; z-index: 1;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none;
-    opacity: 0.4;
-  }
+        /* Custom Video Styling */
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: #000;
+            border-radius: 0.75rem;
+        }
 
-  /* ── LAYOUT ── */
-  .wrapper { position: relative; z-index: 2; }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; 
+        }
 
-  /* ── GLASS MIXIN ── */
-  .glass {
-    background: var(--glass);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    padding: 18px 48px;
-    display: flex; align-items: center; justify-content: space-between;
-    background: rgba(10,12,20,0.6);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--glass-border);
-  }
-  .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
-    font-weight: 300;
-    letter-spacing: 0.1em;
-    color: var(--text);
-  }
-  .nav-logo span { color: var(--accent); font-style: italic; }
-  .nav-links { display: flex; gap: 32px; }
-  .nav-links a {
-    color: var(--muted); text-decoration: none;
-    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
-    transition: color 0.3s;
-    position: relative; padding-bottom: 4px;
-  }
-  .nav-links a::after {
-    content: '';
-    position: absolute; bottom: 0; left: 0; right: 0;
-    height: 1px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-  }
-  .nav-links a:hover { color: var(--accent); }
-  .nav-links a:hover::after { transform: scaleX(1); }
-  .nav-links a.active { color: var(--accent); }
-  .nav-links a.active::after { transform: scaleX(1); }
-
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-align: center;
-    padding: 100px 24px 60px;
-  }
-  .hero-eyebrow {
-    font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 24px;
-    animation: fadeUp 1s ease both;
-  }
-  .hero-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3.5rem, 9vw, 8rem);
-    font-weight: 300;
-    line-height: 1.05;
-    letter-spacing: -0.01em;
-    animation: fadeUp 1s ease 0.15s both;
-  }
-  .hero-title em { font-style: italic; color: var(--accent); }
-  .hero-sub {
-    margin-top: 28px;
-    font-size: 0.72rem; letter-spacing: 0.18em;
-    color: var(--muted); max-width: 500px;
-    line-height: 1.9;
-    animation: fadeUp 1s ease 0.3s both;
-  }
-  .hero-tags {
-    display: flex; flex-wrap: wrap; gap: 10px;
-    justify-content: center; margin-top: 36px;
-    animation: fadeUp 1s ease 0.45s both;
-  }
-  .tag {
-    padding: 6px 16px;
-    border-radius: 100px;
-    border: 1px solid var(--glass-border);
-    background: var(--glass);
-    backdrop-filter: blur(12px);
-    font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--muted);
-    transition: all 0.3s;
-  }
-  .tag:hover { border-color: var(--accent); color: var(--accent); background: rgba(168,237,234,0.08); }
-
-  .scroll-hint {
-    margin-top: 60px;
-    display: flex; flex-direction: column; align-items: center; gap: 10px;
-    animation: fadeUp 1s ease 0.6s both;
-  }
-  .scroll-hint span { font-size: 0.58rem; letter-spacing: 0.25em; color: var(--muted); }
-  .scroll-line {
-    width: 1px; height: 50px;
-    background: linear-gradient(to bottom, var(--accent), transparent);
-    animation: scrollPulse 2s ease-in-out infinite;
-  }
-  @keyframes scrollPulse {
-    0%,100% { opacity: 0.3; transform: scaleY(1); }
-    50% { opacity: 1; transform: scaleY(1.2); }
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ── SECTION LABEL ── */
-  .section-label {
-    font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 16px;
-  }
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 5vw, 3.8rem);
-    font-weight: 300; line-height: 1.1;
-  }
-
-  /* ── WORK SECTION ── */
-  .work { padding: 80px 24px 120px; max-width: 1200px; margin: 0 auto; scroll-margin-top: 72px; }
-  .work-header { text-align: center; margin-bottom: 70px; }
-
-  .video-grid {
-    display: grid;
-    gap: 24px;
-  }
-
-  /* Row 1: wedding (full width) */
-  .video-card {
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    cursor: pointer;
-    border: 1px solid var(--glass-border);
-    background: rgba(255,255,255,0.04);
-    transition: transform 0.4s cubic-bezier(.16,1,.3,1), border-color 0.3s, box-shadow 0.4s;
-  }
-  .video-card:hover {
-    transform: translateY(-4px) scale(1.005);
-    border-color: rgba(168,237,234,0.35);
-    box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(168,237,234,0.1);
-  }
-
-  .card-wedding { grid-column: 1 / -1; }
-
-  /* Row 2: two reels side by side */
-  .row-reels { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-
-  /* Row 3: gaming + color grading */
-  .row-landscape { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-
-  /* Video wrapper with aspect ratio */
-  .video-wrap-16-9 { aspect-ratio: 16/9; }
-  .video-wrap-9-16 { aspect-ratio: 9/16; }
-
-  video {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
-    background: #0a0a12;
-  }
-
-  /* Card overlay info */
-  .card-info {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    padding: 40px 24px 24px;
-    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
-    display: flex; align-items: flex-end; justify-content: space-between;
-    transform: translateY(4px);
-    transition: transform 0.3s;
-  }
-  .video-card:hover .card-info { transform: translateY(0); }
-  .card-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem; font-weight: 300;
-  }
-  .card-cat {
-    font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 4px;
-  }
-
-  /* Play button */
-  .play-btn {
-    width: 44px; height: 44px;
-    border-radius: 50%;
-    background: rgba(168,237,234,0.15);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(168,237,234,0.4);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--accent);
-    flex-shrink: 0;
-    transition: background 0.3s, transform 0.3s;
-  }
-  .video-card:hover .play-btn {
-    background: rgba(168,237,234,0.28);
-    transform: scale(1.1);
-  }
-  .play-btn svg { margin-left: 3px; }
-
-  /* Liquid glass shimmer effect */
-  .video-card::before {
-    content: '';
-    position: absolute; inset: 0; z-index: 1;
-    background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 50%, rgba(168,237,234,0.04) 100%);
-    pointer-events: none;
-    border-radius: 20px;
-  }
-  .card-info, .play-btn { z-index: 2; }
-
-  /* ── ABOUT ── */
-  .about-section {
-    padding: 80px 24px 120px;
-    max-width: 1200px; margin: 0 auto;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
-    scroll-margin-top: 72px;
-  }
-  .about-text { }
-  .about-text .section-label { margin-bottom: 12px; }
-  .about-text .section-title { margin-bottom: 28px; }
-  .about-body {
-    font-size: 0.72rem; line-height: 2; color: var(--muted);
-    max-width: 400px;
-  }
-  .about-body p + p { margin-top: 16px; }
-
-  .stats-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-  }
-  .stat-card {
-    padding: 28px 24px;
-    border-radius: 16px;
-    background: var(--glass);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    transition: border-color 0.3s, transform 0.3s;
-  }
-  .stat-card:hover { border-color: rgba(168,237,234,0.3); transform: translateY(-2px); }
-  .stat-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.8rem; font-weight: 300;
-    color: var(--accent); line-height: 1;
-  }
-  .stat-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 8px; }
-
-  /* ── CONTACT ── */
-  .contact-section {
-    padding: 80px 24px 140px;
-    text-align: center;
-    max-width: 700px; margin: 0 auto;
-    scroll-margin-top: 72px;
-  }
-  .contact-section .section-label { margin-bottom: 12px; }
-  .contact-section .section-title { margin-bottom: 20px; }
-  .contact-desc {
-    font-size: 0.72rem; line-height: 2; color: var(--muted); margin-bottom: 44px;
-  }
-
-  .hire-btn {
-    display: inline-flex; align-items: center; gap: 12px;
-    padding: 18px 44px;
-    border-radius: 100px;
-    background: linear-gradient(135deg, rgba(168,237,234,0.18), rgba(254,214,227,0.12));
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(168,237,234,0.4);
-    color: var(--text);
-    text-decoration: none;
-    font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(.16,1,.3,1);
-    position: relative; overflow: hidden;
-  }
-  .hire-btn::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(135deg, rgba(168,237,234,0.25), rgba(254,214,227,0.2));
-    opacity: 0; transition: opacity 0.3s;
-  }
-  .hire-btn:hover::before { opacity: 1; }
-  .hire-btn:hover { transform: scale(1.04); box-shadow: 0 20px 60px rgba(168,237,234,0.15); border-color: rgba(168,237,234,0.6); }
-  .hire-btn span { position: relative; z-index: 1; }
-  .hire-arrow { position: relative; z-index: 1; font-size: 1.1rem; }
-
-  /* ── FOOTER ── */
-  footer {
-    padding: 28px 48px;
-    border-top: 1px solid var(--glass-border);
-    display: flex; align-items: center; justify-content: space-between;
-    font-size: 0.6rem; letter-spacing: 0.15em; color: var(--muted);
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    nav { padding: 16px 20px; }
-    .nav-links { display: none; }
-    .about-section { grid-template-columns: 1fr; gap: 50px; }
-    .about-body { max-width: 100%; }
-    .row-reels { grid-template-columns: 1fr; }
-    .row-landscape { grid-template-columns: 1fr; }
-    footer { flex-direction: column; gap: 8px; text-align: center; }
-  }
-</style>
+        /* Glowing Dot Animation */
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+        .status-dot {
+            animation: pulse-glow 2s infinite ease-in-out;
+        }
+    </style>
 </head>
-<body>
+<body class="antialiased selection:bg-blue-500 selection:text-white">
 
-<div class="bg-orbs">
-  <div class="orb orb1"></div>
-  <div class="orb orb2"></div>
-  <div class="orb orb3"></div>
-</div>
+    <div class="ambient-bg"></div>
 
-<div class="wrapper">
-
-  <!-- NAV -->
-  <nav>
-    <div class="nav-logo">Rin<span>kesh</span></div>
-    <div class="nav-links">
-      <a href="#work">Work</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-eyebrow">✦ Available for Projects</div>
-    <h1 class="hero-title">Crafting<br><em>Stories</em><br>Through Film</h1>
-    <p class="hero-sub">Professional video editor specializing in cinematic storytelling — weddings, brands, social media &amp; beyond.</p>
-    <div class="hero-tags">
-      <span class="tag">YouTube Videos</span>
-      <span class="tag">Wedding Films</span>
-      <span class="tag">Social Reels</span>
-      <span class="tag">Short Films</span>
-      <span class="tag">Brand Videos</span>
-      <span class="tag">Corporate</span>
-      <span class="tag">Color Grading</span>
-    </div>
-    <div class="scroll-hint">
-      <span>Scroll to explore</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
-
-  <!-- WORK -->
-  <section class="work" id="work">
-    <div class="work-header">
-      <div class="section-label">✦ Selected Work</div>
-      <h2 class="section-title">Where every frame<br><em style="font-style:italic; color:var(--accent)">tells a story</em></h2>
-    </div>
-
-    <div class="video-grid">
-
-      <!-- 1. Wedding — 16:9 full width -->
-      <div class="video-card card-wedding">
-        <div class="video-wrap-16-9">
-          <video src="https://pub-ad11a3088d664911b28ccc9f37b5326c.r2.dev/Weddingedit.mp4" preload="metadata" playsinline loop></video>
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 top-0 pt-6 px-4 pointer-events-none">
+        <div class="max-w-5xl mx-auto flex justify-between items-center bento-card px-6 py-4 pointer-events-auto rounded-full">
+            <div class="font-bold text-xl tracking-tight">RINKESH OLA</div>
+            <div class="flex items-center gap-3 bg-white/5 px-4 py-2 rounded-full border border-white/10">
+                <div class="w-2 h-2 rounded-full bg-green-500 status-dot"></div>
+                <span class="text-xs font-medium text-gray-300">Available for Work</span>
+            </div>
+            <a href="mailto:rinkeshola116@gmail.com" class="text-sm font-semibold hover:text-blue-400 transition-colors">Contact</a>
         </div>
-        <div class="card-info">
-          <div>
-            <div class="card-cat">Wedding Film</div>
-            <div class="card-title">Forever Moments</div>
-          </div>
-          <div class="play-btn">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><polygon points="3,1 13,7 3,13"/></svg>
-          </div>
-        </div>
-      </div>
+    </nav>
 
-      <!-- 2 & 3. Reels — 9:16 side by side -->
-      <div class="row-reels">
-        <div class="video-card">
-          <div class="video-wrap-9-16">
-            <video src="Reel1.mp4" preload="metadata" playsinline loop></video>
-          </div>
-          <div class="card-info">
-            <div>
-              <div class="card-cat">Social Reel</div>
-              <div class="card-title">Reel I</div>
+    <!-- Main Content -->
+    <div class="relative z-10 max-w-6xl mx-auto px-4 pt-40 pb-10">
+        
+        <!-- Hero Section -->
+        <header class="text-center mb-20 flex flex-col items-center justify-center">
+            <div class="inline-block mb-4 px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-300 text-sm font-medium tracking-wide">
+                Video Editor & Visual Storyteller
             </div>
-            <div class="play-btn">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><polygon points="3,1 13,7 3,13"/></svg>
+            <h1 class="text-6xl md:text-8xl font-extrabold mb-6 tracking-tight leading-tight">
+                Elevating Brands Through <br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">Visual Storytelling.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-3xl mx-auto font-medium leading-relaxed">
+                I am Rinkesh Ola, a professional video editor dedicated to transforming raw footage into high-retention YouTube content, cinematic wedding films, and compelling brand commercials.
+            </p>
+            
+            <div class="flex gap-4">
+                <a href="mailto:rinkeshola116@gmail.com" class="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white bg-white/10 backdrop-blur-md border border-white/20 rounded-full overflow-hidden transition-all duration-300 hover:bg-white hover:text-black hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)]">
+                    <span class="mr-2">Hire Me Now</span>
+                    <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+                <a href="#work" class="inline-flex items-center justify-center px-8 py-4 font-bold text-gray-300 bg-transparent border border-white/10 rounded-full transition-all duration-300 hover:bg-white/5 hover:text-white">
+                    View Portfolio
+                </a>
             </div>
-          </div>
-        </div>
-        <div class="video-card">
-          <div class="video-wrap-9-16">
-            <video src="Reel2.mp4" preload="metadata" playsinline loop></video>
-          </div>
-          <div class="card-info">
-            <div>
-              <div class="card-cat">Social Reel</div>
-              <div class="card-title">Reel II</div>
-            </div>
-            <div class="play-btn">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><polygon points="3,1 13,7 3,13"/></svg>
-            </div>
-          </div>
-        </div>
-      </div>
+        </header>
 
-      <!-- 4 & 5. Gaming Teaser + Color Grading — 16:9 side by side -->
-      <div class="row-landscape">
-        <div class="video-card">
-          <div class="video-wrap-16-9">
-            <video src="Gamingteaser.mp4" preload="metadata" playsinline loop></video>
-          </div>
-          <div class="card-info">
-            <div>
-              <div class="card-cat">Gaming Teaser</div>
-              <div class="card-title">Enter the Arena</div>
-            </div>
-            <div class="play-btn">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><polygon points="3,1 13,7 3,13"/></svg>
-            </div>
-          </div>
-        </div>
-        <div class="video-card">
-          <div class="video-wrap-16-9">
-            <video src="Colorgrading.mp4" preload="metadata" playsinline loop></video>
-          </div>
-          <div class="card-info">
-            <div>
-              <div class="card-cat">Color Grading</div>
-              <div class="card-title">Before &amp; After</div>
-            </div>
-            <div class="play-btn">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><polygon points="3,1 13,7 3,13"/></svg>
-            </div>
-          </div>
-        </div>
-      </div>
+        <!-- About & Tools Bento Section -->
+        <section class="mb-24">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- About Description -->
+                <div class="bento-card p-8 md:col-span-2 flex flex-col justify-center relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 rounded-full filter blur-[80px] group-hover:bg-blue-600/20 transition-all duration-500"></div>
+                    <h2 class="text-2xl font-bold mb-4 text-white">Who I Am</h2>
+                    <p class="text-gray-400 leading-relaxed text-lg">
+                        With a deep passion for rhythm, pacing, and color, I craft videos that don't just look good, but actually perform. Whether it's retaining audience attention on a fast-paced YouTube video or capturing the raw emotions of a wedding, I bring a unique cinematic edge to every project.
+                    </p>
+                </div>
 
-    </div><!-- /video-grid -->
-  </section>
+                <!-- Quick Stats -->
+                <div class="bento-card p-8 md:col-span-1 bg-gradient-to-br from-indigo-900/10 to-purple-900/10 flex flex-col justify-center items-center text-center">
+                    <div class="mb-6">
+                        <h3 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">100+</h3>
+                        <p class="text-sm text-gray-400 uppercase tracking-widest mt-2 font-semibold">Projects Delivered</p>
+                    </div>
+                    <div>
+                        <h3 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">5+</h3>
+                        <p class="text-sm text-gray-400 uppercase tracking-widest mt-2 font-semibold">Years of Editing</p>
+                    </div>
+                </div>
 
-  <!-- ABOUT -->
-  <section class="about-section" id="about">
-    <div class="about-text">
-      <div class="section-label">✦ About</div>
-      <h2 class="section-title">The editor<br>behind the<br><em style="font-style:italic; color:var(--accent)">magic</em></h2>
-      <div class="about-body">
-        <p>I'm Rinkesh — a passionate video editor with an eye for cinematic detail and a love for storytelling that moves people.</p>
-        <p>From intimate wedding films to high-energy gaming teasers, I bring every project to life with precision color grading, dynamic pacing, and a distinct visual language.</p>
-        <p>Whether you need a viral social reel, a brand film, or a cinematic short — I'm here to make it unforgettable.</p>
-      </div>
+                <!-- Arsenal / Tools -->
+                <div class="bento-card p-8 md:col-span-3">
+                    <h2 class="text-sm font-bold mb-6 tracking-[0.2em] uppercase text-gray-400 text-center">Software Arsenal</h2>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <span class="px-6 py-3 rounded-xl border border-white/5 bg-white/5 text-gray-200 font-medium hover:bg-white/10 transition-colors cursor-default">DaVinci Resolve</span>
+                        <span class="px-6 py-3 rounded-xl border border-white/5 bg-white/5 text-gray-200 font-medium hover:bg-white/10 transition-colors cursor-default">CapCut</span>
+                        <span class="px-6 py-3 rounded-xl border border-white/5 bg-white/5 text-gray-200 font-medium hover:bg-white/10 transition-colors cursor-default">Fusion</span>
+                        <span class="px-6 py-3 rounded-xl border border-white/5 bg-white/5 text-gray-200 font-medium hover:bg-white/10 transition-colors cursor-default">Adobe Photoshop</span>
+                        <span class="px-6 py-3 rounded-xl border border-white/5 bg-white/5 text-gray-200 font-medium hover:bg-white/10 transition-colors cursor-default">Final Cut Pro</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bento Grid Portfolio Section -->
+        <section id="work">
+            <div class="flex items-center gap-4 mb-10">
+                <h2 class="text-3xl font-bold">Selected Works</h2>
+                <div class="h-[1px] bg-white/20 flex-grow"></div>
+            </div>
+            
+            <!-- Linear Layout Container -->
+            <div class="flex flex-col gap-8">
+                
+                <!-- Row 1: Wedding (16:9) - Full Width -->
+                <div class="bento-card p-6 md:p-8 group hover:border-white/20 transition-all duration-300">
+                    <div class="flex justify-between items-center mb-6 px-2">
+                        <div>
+                            <h3 class="text-2xl font-bold">Cinematic Wedding Experience</h3>
+                            <p class="text-sm text-gray-400 mt-1">Color grading, audio mixing, emotional pacing.</p>
+                        </div>
+                    </div>
+                    <div class="aspect-video rounded-xl overflow-hidden bg-black/50 border border-white/10 w-full">
+                        <video controls preload="metadata" class="w-full h-full object-cover">
+                            <source src="Weddingedit.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+
+                <!-- Row 2: Two Reels (9:16) Side by Side -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Reel 1 -->
+                    <div class="bento-card p-5 group hover:border-pink-500/30 transition-all duration-300 flex flex-col">
+                        <div class="flex justify-between items-center mb-5 px-2">
+                            <div>
+                                <h3 class="text-xl font-bold">High-Retention Reel</h3>
+                                <p class="text-xs text-gray-400 mt-1">Fast-paced, motion graphics.</p>
+                            </div>
+                        </div>
+                        <div class="rounded-xl overflow-hidden bg-black/50 border border-white/10 relative w-full max-w-[320px] mx-auto" style="aspect-ratio: 9/16;">
+                            <video controls preload="metadata" class="absolute inset-0 w-full h-full object-cover">
+                                <source src="Reel1.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+
+                    <!-- Reel 2 -->
+                    <div class="bento-card p-5 group hover:border-pink-500/30 transition-all duration-300 flex flex-col">
+                        <div class="flex justify-between items-center mb-5 px-2">
+                            <div>
+                                <h3 class="text-xl font-bold">Engaging Short</h3>
+                                <p class="text-xs text-gray-400 mt-1">Storytelling & captions.</p>
+                            </div>
+                        </div>
+                        <div class="rounded-xl overflow-hidden bg-black/50 border border-white/10 relative w-full max-w-[320px] mx-auto" style="aspect-ratio: 9/16;">
+                            <video controls preload="metadata" class="absolute inset-0 w-full h-full object-cover">
+                                <source src="Reel2.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 3: Two 16:9 Videos Side by Side -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Gaming Teaser -->
+                    <div class="bento-card p-5 group hover:border-blue-500/30 transition-all duration-300">
+                        <div class="flex justify-between items-center mb-5 px-2">
+                            <div>
+                                <h3 class="text-xl font-bold">Gaming Teaser</h3>
+                                <p class="text-xs text-gray-400 mt-1">VFX, beat-sync, intense audio.</p>
+                            </div>
+                        </div>
+                        <div class="aspect-video rounded-xl overflow-hidden bg-black/50 border border-white/10">
+                            <video controls preload="metadata" class="w-full h-full object-cover">
+                                <source src="Gamingteaser.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+
+                    <!-- Color Grading -->
+                    <div class="bento-card p-5 group hover:border-emerald-500/30 transition-all duration-300">
+                        <div class="flex justify-between items-center mb-5 px-2">
+                            <div>
+                                <h3 class="text-xl font-bold">Color Grading</h3>
+                                <p class="text-xs text-gray-400 mt-1">Before & After breakdown.</p>
+                            </div>
+                        </div>
+                        <div class="aspect-video rounded-xl overflow-hidden bg-black/50 border border-white/10">
+                            <video controls preload="metadata" class="w-full h-full object-cover">
+                                <source src="Colorgrading.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Final CTA Section -->
+        <section class="mt-32 mb-10">
+            <div class="bento-card p-12 md:p-20 text-center relative overflow-hidden border-blue-500/20">
+                <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none"></div>
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-6 relative z-10 text-white">Ready to start your next project?</h2>
+                <p class="text-lg text-gray-400 mb-10 max-w-2xl mx-auto relative z-10">
+                    Whether you need a high-impact YouTube video, a breathtaking wedding film, or a scroll-stopping reel, I'm ready to bring your vision to life.
+                </p>
+                <a href="mailto:rinkeshola116@gmail.com" class="relative z-10 inline-flex items-center justify-center px-10 py-5 font-bold text-black bg-white rounded-full overflow-hidden transition-all duration-300 hover:scale-105 shadow-[0_0_40px_rgba(255,255,255,0.2)]">
+                    Let's Work Together
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-20 border-t border-white/10 pt-10 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="font-bold text-2xl tracking-tight text-white/50">RO.</div>
+            <p class="text-gray-500 text-sm">© 2026 Rinkesh Ola. Designed for creators.</p>
+            <div class="flex gap-4">
+                <a href="mailto:rinkeshola116@gmail.com" class="text-gray-500 hover:text-white transition-colors text-sm font-medium">rinkeshola116@gmail.com</a>
+            </div>
+        </footer>
+
     </div>
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-num">50+</div>
-        <div class="stat-label">Projects Completed</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">3+</div>
-        <div class="stat-label">Years Experience</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">7</div>
-        <div class="stat-label">Video Categories</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">∞</div>
-        <div class="stat-label">Creative Vision</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="contact-section" id="contact">
-    <div class="section-label">✦ Let's Work Together</div>
-    <h2 class="section-title">Ready to create<br>something<br><em style="font-style:italic; color:var(--accent)">extraordinary?</em></h2>
-    <p class="contact-desc">Have a project in mind? Whether it's a wedding, a brand film, a YouTube video or anything in between — let's talk and bring your vision to life.</p>
-    <a class="hire-btn" href="mailto:rinkeshola116@gmail.com?subject=Hiring%20Inquiry%20-%20Video%20Editing%20Project&body=Hi%20Rinkesh%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project%20with%20you.%0A%0AProject%20details%3A%0A">
-      <span>Hire Me</span>
-      <span class="hire-arrow">→</span>
-    </a>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <span>© 2025 Rinkesh · Video Editor</span>
-    <span>rinkeshola116@gmail.com</span>
-  </footer>
-
-</div><!-- /wrapper -->
-
-<script>
-  // Click to play/pause videos
-  document.querySelectorAll('.video-card').forEach(card => {
-    const video = card.querySelector('video');
-    const btn = card.querySelector('.play-btn svg');
-
-    const pauseIcon = `<rect x="3" y="1" width="3" height="12"/><rect x="8" y="1" width="3" height="12"/>`;
-    const playIcon = `<polygon points="3,1 13,7 3,13"/>`;
-
-    card.addEventListener('click', () => {
-      if (video.paused) {
-        // Pause all others
-        document.querySelectorAll('video').forEach(v => {
-          if (v !== video) {
-            v.pause();
-            const otherBtn = v.closest('.video-card').querySelector('.play-btn svg');
-            otherBtn.innerHTML = playIcon;
-          }
-        });
-        video.play();
-        btn.innerHTML = pauseIcon;
-      } else {
-        video.pause();
-        btn.innerHTML = playIcon;
-      }
-    });
-
-    video.addEventListener('ended', () => {
-      btn.innerHTML = playIcon;
-    });
-  });
-
-  // Active nav link highlighting on scroll
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-
-  const navObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        navLinks.forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === '#' + entry.target.id) {
-            link.classList.add('active');
-          }
-        });
-      }
-    });
-  }, { rootMargin: '-30% 0px -60% 0px' });
-
-  sections.forEach(s => navObserver.observe(s));
-
-  // Smooth scroll with offset for fixed nav
-  navLinks.forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.querySelector(link.getAttribute('href'));
-      if (target) {
-        const offset = 72;
-        const top = target.getBoundingClientRect().top + window.scrollY - offset;
-        window.scrollTo({ top, behavior: 'smooth' });
-      }
-    });
-  });
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.video-card, .stat-card').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(24px)';
-    el.style.transition = 'opacity 0.7s ease, transform 0.7s cubic-bezier(.16,1,.3,1), border-color 0.3s, box-shadow 0.4s';
-    observer.observe(el);
-  });
-</script>
 
 </body>
 </html>
