@@ -95,6 +95,23 @@
         .status-dot {
             animation: pulse-glow 2s infinite ease-in-out;
         }
+
+        /* Custom Video Player UI */
+        .play-overlay {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(1px);
+            transition: all 0.3s ease;
+        }
+        .play-overlay:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        .play-overlay svg {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+        }
+        .play-overlay:hover svg {
+            transform: scale(1.15);
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-blue-500 selection:text-white">
@@ -114,27 +131,27 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="relative z-10 max-w-6xl mx-auto px-4 pt-40 pb-10">
+    <div class="relative z-10 max-w-6xl mx-auto px-4 pt-32 md:pt-40 pb-10">
         
         <!-- Hero Section -->
-        <header class="text-center mb-20 flex flex-col items-center justify-center">
-            <div class="inline-block mb-4 px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-300 text-sm font-medium tracking-wide">
+        <header class="text-center mb-16 md:mb-20 flex flex-col items-center justify-center">
+            <div class="inline-block mb-4 px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-300 text-xs md:text-sm font-medium tracking-wide">
                 Video Editor & Visual Storyteller
             </div>
-            <h1 class="text-6xl md:text-8xl font-extrabold mb-6 tracking-tight leading-tight">
-                Elevating Brands Through <br/>
+            <h1 class="text-5xl sm:text-6xl md:text-8xl font-extrabold mb-4 md:mb-6 tracking-tight leading-tight px-2">
+                Elevating Brands Through <br class="hidden md:block"/>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">Visual Storytelling.</span>
             </h1>
-            <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-3xl mx-auto font-medium leading-relaxed">
+            <p class="text-base sm:text-lg md:text-xl text-gray-400 mb-8 md:mb-10 max-w-3xl mx-auto font-medium leading-relaxed px-4">
                 I am Rinkesh Ola, a professional video editor dedicated to transforming raw footage into high-retention YouTube content, cinematic wedding films, and compelling brand commercials.
             </p>
             
-            <div class="flex gap-4">
-                <a href="mailto:rinkeshola116@gmail.com" class="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white bg-white/10 backdrop-blur-md border border-white/20 rounded-full overflow-hidden transition-all duration-300 hover:bg-white hover:text-black hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)]">
+            <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto px-6">
+                <a href="mailto:rinkeshola116@gmail.com" class="group relative w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 font-bold text-white bg-white/10 backdrop-blur-md border border-white/20 rounded-full overflow-hidden transition-all duration-300 hover:bg-white hover:text-black hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)]">
                     <span class="mr-2">Hire Me Now</span>
                     <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
-                <a href="#work" class="inline-flex items-center justify-center px-8 py-4 font-bold text-gray-300 bg-transparent border border-white/10 rounded-full transition-all duration-300 hover:bg-white/5 hover:text-white">
+                <a href="#work" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 font-bold text-gray-300 bg-transparent border border-white/10 rounded-full transition-all duration-300 hover:bg-white/5 hover:text-white">
                     View Portfolio
                 </a>
             </div>
@@ -179,92 +196,112 @@
         </section>
 
         <!-- Bento Grid Portfolio Section -->
-        <section id="work">
-            <div class="flex items-center gap-4 mb-10">
-                <h2 class="text-3xl font-bold">Selected Works</h2>
+        <section id="work" class="scroll-mt-24">
+            <div class="flex items-center gap-4 mb-8 md:mb-10">
+                <h2 class="text-2xl md:text-3xl font-bold">Selected Works</h2>
                 <div class="h-[1px] bg-white/20 flex-grow"></div>
             </div>
             
             <!-- Linear Layout Container -->
-            <div class="flex flex-col gap-8">
+            <div class="flex flex-col gap-6 md:gap-8">
                 
                 <!-- Row 1: Wedding (16:9) - Full Width -->
-                <div class="bento-card p-6 md:p-8 group hover:border-white/20 transition-all duration-300">
-                    <div class="flex justify-between items-center mb-6 px-2">
+                <div class="bento-card p-4 sm:p-6 md:p-8 group hover:border-white/20 transition-all duration-300">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 md:mb-6 px-1 md:px-2 gap-2">
                         <div>
-                            <h3 class="text-2xl font-bold">Cinematic Wedding Experience</h3>
-                            <p class="text-sm text-gray-400 mt-1">Color grading, audio mixing, emotional pacing.</p>
+                            <h3 class="text-xl md:text-2xl font-bold">Cinematic Wedding Experience</h3>
+                            <p class="text-xs md:text-sm text-gray-400 mt-1">Color grading, audio mixing, emotional pacing.</p>
                         </div>
                     </div>
-                    <div class="aspect-video rounded-xl overflow-hidden bg-black/50 border border-white/10 w-full">
-                        <video controls preload="metadata" class="w-full h-full object-cover">
+                    <!-- Custom Video Player Wrapper -->
+                    <div class="video-wrapper relative aspect-video rounded-lg md:rounded-xl overflow-hidden bg-black/50 border border-white/10 w-full">
+                        <!-- Poster is the thumbnail image -->
+                        <video class="w-full h-full object-cover" poster="https://pub-ad11a3088d664911b28ccc9f37b5326c.r2.dev/wedding.png" preload="none" playsinline>
                             <source src="https://pub-ad11a3088d664911b28ccc9f37b5326c.r2.dev/Weddingedit.mp4" type="video/mp4">
                         </video>
+                        <!-- Play Button Overlay -->
+                        <div class="play-overlay absolute inset-0 flex items-center justify-center cursor-pointer z-10">
+                            <div class="bg-white/20 backdrop-blur-md rounded-full p-4 md:p-5 border border-white/30 shadow-xl">
+                                <svg class="w-10 h-10 md:w-12 md:h-12 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Row 2: Two Reels (9:16) Side by Side -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
                     <!-- Reel 1 -->
-                    <div class="bento-card p-5 group hover:border-pink-500/30 transition-all duration-300 flex flex-col">
-                        <div class="flex justify-between items-center mb-5 px-2">
-                            <div>
-                                <h3 class="text-xl font-bold">High-Retention Reel</h3>
-                                <p class="text-xs text-gray-400 mt-1">Fast-paced, motion graphics.</p>
-                            </div>
+                    <div class="bento-card p-4 sm:p-5 group hover:border-pink-500/30 transition-all duration-300 flex flex-col">
+                        <div class="mb-4 px-1 md:px-2">
+                            <h3 class="text-lg md:text-xl font-bold">High-Retention Reel</h3>
+                            <p class="text-xs text-gray-400 mt-1">Fast-paced, motion graphics.</p>
                         </div>
-                        <div class="rounded-xl overflow-hidden bg-black/50 border border-white/10 relative w-full max-w-[320px] mx-auto" style="aspect-ratio: 9/16;">
-                            <video controls preload="metadata" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="video-wrapper relative rounded-lg md:rounded-xl overflow-hidden bg-black/50 border border-white/10 w-full max-w-[320px] mx-auto" style="aspect-ratio: 9/16;">
+                            <video class="w-full h-full object-cover" poster="reel1.png" preload="none" playsinline>
                                 <source src="Reel1.mp4" type="video/mp4">
                             </video>
+                            <div class="play-overlay absolute inset-0 flex items-center justify-center cursor-pointer z-10">
+                                <div class="bg-white/20 backdrop-blur-md rounded-full p-3 md:p-4 border border-white/30 shadow-xl">
+                                    <svg class="w-8 h-8 md:w-10 md:h-10 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Reel 2 -->
-                    <div class="bento-card p-5 group hover:border-pink-500/30 transition-all duration-300 flex flex-col">
-                        <div class="flex justify-between items-center mb-5 px-2">
-                            <div>
-                                <h3 class="text-xl font-bold">Engaging Short</h3>
-                                <p class="text-xs text-gray-400 mt-1">Storytelling & captions.</p>
-                            </div>
+                    <div class="bento-card p-4 sm:p-5 group hover:border-pink-500/30 transition-all duration-300 flex flex-col">
+                        <div class="mb-4 px-1 md:px-2">
+                            <h3 class="text-lg md:text-xl font-bold">Engaging Short</h3>
+                            <p class="text-xs text-gray-400 mt-1">Storytelling & captions.</p>
                         </div>
-                        <div class="rounded-xl overflow-hidden bg-black/50 border border-white/10 relative w-full max-w-[320px] mx-auto" style="aspect-ratio: 9/16;">
-                            <video controls preload="metadata" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="video-wrapper relative rounded-lg md:rounded-xl overflow-hidden bg-black/50 border border-white/10 w-full max-w-[320px] mx-auto" style="aspect-ratio: 9/16;">
+                            <video class="w-full h-full object-cover" poster="reel2.png" preload="none" playsinline>
                                 <source src="Reel2.mp4" type="video/mp4">
                             </video>
+                            <div class="play-overlay absolute inset-0 flex items-center justify-center cursor-pointer z-10">
+                                <div class="bg-white/20 backdrop-blur-md rounded-full p-3 md:p-4 border border-white/30 shadow-xl">
+                                    <svg class="w-8 h-8 md:w-10 md:h-10 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Row 3: Two 16:9 Videos Side by Side -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
                     <!-- Gaming Teaser -->
-                    <div class="bento-card p-5 group hover:border-blue-500/30 transition-all duration-300">
-                        <div class="flex justify-between items-center mb-5 px-2">
-                            <div>
-                                <h3 class="text-xl font-bold">Gaming Teaser</h3>
-                                <p class="text-xs text-gray-400 mt-1">VFX, beat-sync, intense audio.</p>
-                            </div>
+                    <div class="bento-card p-4 sm:p-5 group hover:border-blue-500/30 transition-all duration-300">
+                        <div class="mb-4 px-1 md:px-2">
+                            <h3 class="text-lg md:text-xl font-bold">Gaming Teaser</h3>
+                            <p class="text-xs text-gray-400 mt-1">VFX, beat-sync, intense audio.</p>
                         </div>
-                        <div class="aspect-video rounded-xl overflow-hidden bg-black/50 border border-white/10">
-                            <video controls preload="metadata" class="w-full h-full object-cover">
-                                <source src="Gamingteaser.mp4" type="video/mp4">
+                        <div class="video-wrapper relative aspect-video rounded-lg md:rounded-xl overflow-hidden bg-black/50 border border-white/10 w-full">
+                            <video class="w-full h-full object-cover" poster="https://pub-ad11a3088d664911b28ccc9f37b5326c.r2.dev/gaming.png" preload="none" playsinline>
+                                <source src="https://pub-ad11a3088d664911b28ccc9f37b5326c.r2.dev/Gamingteaser.mp4" type="video/mp4">
                             </video>
+                            <div class="play-overlay absolute inset-0 flex items-center justify-center cursor-pointer z-10">
+                                <div class="bg-white/20 backdrop-blur-md rounded-full p-3 border border-white/30 shadow-xl">
+                                    <svg class="w-8 h-8 md:w-10 md:h-10 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Color Grading -->
-                    <div class="bento-card p-5 group hover:border-emerald-500/30 transition-all duration-300">
-                        <div class="flex justify-between items-center mb-5 px-2">
-                            <div>
-                                <h3 class="text-xl font-bold">Color Grading</h3>
-                                <p class="text-xs text-gray-400 mt-1">Before & After breakdown.</p>
-                            </div>
+                    <div class="bento-card p-4 sm:p-5 group hover:border-emerald-500/30 transition-all duration-300">
+                        <div class="mb-4 px-1 md:px-2">
+                            <h3 class="text-lg md:text-xl font-bold">Color Grading</h3>
+                            <p class="text-xs text-gray-400 mt-1">Before & After breakdown.</p>
                         </div>
-                        <div class="aspect-video rounded-xl overflow-hidden bg-black/50 border border-white/10">
-                            <video controls preload="metadata" class="w-full h-full object-cover">
+                        <div class="video-wrapper relative aspect-video rounded-lg md:rounded-xl overflow-hidden bg-black/50 border border-white/10 w-full">
+                            <video class="w-full h-full object-cover" poster="colorgrading.png" preload="none" playsinline>
                                 <source src="Colorgrading.mp4" type="video/mp4">
                             </video>
+                            <div class="play-overlay absolute inset-0 flex items-center justify-center cursor-pointer z-10">
+                                <div class="bg-white/20 backdrop-blur-md rounded-full p-3 border border-white/30 shadow-xl">
+                                    <svg class="w-8 h-8 md:w-10 md:h-10 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -298,5 +335,44 @@
 
     </div>
 
+    <!-- Custom Video Player Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoWrappers = document.querySelectorAll('.video-wrapper');
+
+            videoWrappers.forEach(wrapper => {
+                const video = wrapper.querySelector('video');
+                const overlay = wrapper.querySelector('.play-overlay');
+
+                overlay.addEventListener('click', () => {
+                    // Baaki sabhi videos pause karein
+                    document.querySelectorAll('video').forEach(v => {
+                        if (v !== video) {
+                            v.pause();
+                            v.removeAttribute('controls'); // Pause hone par controls hata dein
+                        }
+                    });
+                    
+                    // Dusri sabhi overlays wapas show karein
+                    document.querySelectorAll('.play-overlay').forEach(o => {
+                        if (o !== overlay) {
+                            o.style.display = 'flex';
+                        }
+                    });
+
+                    // Current video par controls add karein aur play karein
+                    video.setAttribute('controls', 'true');
+                    overlay.style.display = 'none'; // Play button hide karein
+                    video.play();
+                });
+
+                // Jab video poori chal jaye, toh wapas play button dikhayein
+                video.addEventListener('ended', () => {
+                    overlay.style.display = 'flex';
+                    video.removeAttribute('controls');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
