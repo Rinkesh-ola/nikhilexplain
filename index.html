@@ -1,157 +1,620 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nikhil Explain House 🎬</title>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2942184860574287"
-     crossorigin="anonymous"></script>
-  <link rel="icon" href="favicon.ico"/>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/>
-  <style>
-    :root{--red:#e50914;--dark:#0a0a0a;--card-bg:#141414;--surface:#1c1c1c;--text:#f5f5f1;--muted:#999;--gold:#f5c518}
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{background:var(--dark);color:var(--text);font-family:'Poppins',sans-serif;min-height:100vh;overflow-x:hidden}
-    nav{position:sticky;top:0;z-index:100;background:linear-gradient(180deg,#000 0%,transparent 100%);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:space-between;padding:18px 40px;border-bottom:1px solid #ffffff10}
-    .logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:2px;color:var(--text);text-decoration:none}
-    .logo span{color:var(--red)}
-    .nav-links{display:flex;gap:28px;list-style:none}
-    .nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;transition:color .2s}
-    .nav-links a:hover,.nav-links a.active{color:var(--text)}
-    .nav-links a.active{border-bottom:2px solid var(--red);padding-bottom:2px}
-    .search-bar{display:flex;align-items:center;background:var(--surface);border:1px solid #ffffff15;border-radius:24px;padding:6px 16px;gap:8px}
-    .search-bar input{background:none;border:none;outline:none;color:var(--text);font-family:'Poppins',sans-serif;font-size:.85rem;width:180px}
-    .search-bar input::placeholder{color:var(--muted)}
-    .hero{position:relative;height:420px;display:flex;align-items:flex-end;padding:48px 40px;overflow:hidden}
-    .hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1a0000 0%,#0a0a1a 50%,#000d1a 100%)}
-    .hero-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 60% 40%,#e5091422 0%,transparent 70%)}
-    .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:40px 40px}
-    .hero-content{position:relative;z-index:2;max-width:600px}
-    .hero-tag{display:inline-block;background:var(--red);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:2px;margin-bottom:14px}
-    .hero h1{font-family:'Bebas Neue',sans-serif;font-size:3.8rem;line-height:1;letter-spacing:2px;margin-bottom:14px}
-    .hero p{color:#bbb;font-size:.9rem;line-height:1.6;margin-bottom:24px;max-width:440px}
-    .hero-btns{display:flex;gap:12px}
-    .btn-primary{background:var(--red);color:#fff;border:none;padding:12px 28px;border-radius:4px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;letter-spacing:1px;transition:background .2s,transform .1s}
-    .btn-primary:hover{background:#ff0f1a;transform:scale(1.02)}
-    .btn-ghost{background:#ffffff15;color:#fff;border:1px solid #ffffff25;padding:12px 28px;border-radius:4px;font-family:'Poppins',sans-serif;font-weight:600;font-size:.85rem;cursor:pointer;letter-spacing:1px;transition:background .2s}
-    .btn-ghost:hover{background:#ffffff25}
-    .section{padding:40px 40px 20px}
-    .section-header{display:flex;align-items:center;gap:14px;margin-bottom:24px}
-    .section-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:2px}
-    .section-line{flex:1;height:1px;background:linear-gradient(90deg,#ffffff20,transparent)}
-    .section-badge{font-size:.7rem;font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase;border:1px solid #f5c51840;padding:3px 10px;border-radius:20px}
-    .genre-pills{display:flex;gap:10px;flex-wrap:wrap;padding:0 40px 32px}
-    .pill{background:var(--surface);border:1px solid #ffffff15;color:var(--muted);padding:7px 20px;border-radius:20px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s}
-    .pill:hover,.pill.active{background:var(--red);color:#fff;border-color:var(--red)}
-    .movie-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px;padding:0 40px 48px}
-    .movie-card{background:var(--card-bg);border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .25s,box-shadow .25s;border:1px solid #ffffff08;position:relative}
-    .movie-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 20px 50px #e5091430;border-color:#e5091440;z-index:10}
-    .movie-thumb{position:relative;aspect-ratio:2/3;overflow:hidden}
-    .movie-thumb-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem}
-    .play-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .25s}
-    .movie-card:hover .play-overlay{opacity:1}
-    .play-btn{width:56px;height:56px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 24px #e50914aa}
-    .play-btn svg{margin-left:4px}
-    .free-badge{position:absolute;top:10px;left:10px;background:#00c853;color:#fff;font-size:.65rem;font-weight:700;letter-spacing:1px;padding:3px 8px;border-radius:3px}
-    .movie-info{padding:12px 14px 14px}
-    .movie-title{font-size:.9rem;font-weight:700;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .movie-meta{display:flex;align-items:center;gap:10px;font-size:.75rem;color:var(--muted)}
-    .rating{color:var(--gold);font-weight:600}
-    .movie-genre{font-size:.7rem;color:var(--muted);margin-top:5px}
-    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(6px)}
-    .modal-overlay.open{opacity:1;pointer-events:all}
-    .modal{background:var(--card-bg);border-radius:12px;width:100%;max-width:760px;border:1px solid #ffffff15;overflow:hidden;transform:scale(.95);transition:transform .3s;box-shadow:0 40px 100px #000}
-    .modal-overlay.open .modal{transform:scale(1)}
-    .modal-video{width:100%;aspect-ratio:16/9;background:#000}
-    .modal-video iframe{width:100%;height:100%;border:none}
-    .modal-body{padding:20px 24px 24px}
-    .modal-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
-    .modal-title{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:1px}
-    .modal-close{background:#ffffff15;border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:background .2s}
-    .modal-close:hover{background:var(--red)}
-    .modal-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-    .modal-tag{font-size:.7rem;padding:3px 10px;border-radius:20px;background:#ffffff12;color:var(--muted)}
-    .modal-desc{font-size:.85rem;color:#aaa;line-height:1.7}
-    footer{border-top:1px solid #ffffff10;padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-    .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:2px}
-    .footer-logo span{color:var(--red)}
-    .footer-links{display:flex;gap:20px}
-    .footer-links a{font-size:.75rem;color:var(--muted);text-decoration:none}
-    .footer-links a:hover{color:var(--text)}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-    .movie-card{animation:fadeUp .4s ease both}
-    .movie-card:nth-child(1){animation-delay:.05s}.movie-card:nth-child(2){animation-delay:.10s}.movie-card:nth-child(3){animation-delay:.15s}.movie-card:nth-child(4){animation-delay:.20s}.movie-card:nth-child(5){animation-delay:.25s}.movie-card:nth-child(6){animation-delay:.30s}
-    @media(max-width:700px){nav{padding:14px 20px}.nav-links{display:none}.hero{padding:32px 20px;height:auto;min-height:300px}.hero h1{font-size:2.4rem}.section,.movie-grid,.genre-pills{padding-left:20px;padding-right:20px}footer{flex-direction:column;text-align:center}}
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- ── PRIMARY SEO ── -->
+<title>Nikhil Explain House | Movie Collection & Reviews</title>
+<meta name="description" content="Nikhil Explain House — Nikhil ki personal movie collection. Top movies ki ratings, reviews aur genre-wise analysis. Nikhil Explain ke saath cinema explore karein." />
+<meta name="keywords" content="Nikhil Explain House, Nikhil Explain, Nikhil movies, Nikhil movie review, Nikhil explain movies, movie collection Hindi, Nikhil personal portfolio, best movies list, Nikhil explain YouTube" />
+<meta name="author" content="Nikhil Explain House" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://nikhilexplainhouse.com/" />
+
+<!-- ── OPEN GRAPH (Facebook / WhatsApp preview) ── -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://nikhilexplainhouse.com/" />
+<meta property="og:title" content="Nikhil Explain House | Movie Collection & Reviews" />
+<meta property="og:description" content="Nikhil Explain House — Nikhil ki curated movie collection with ratings aur genre filters. Cinema ko explore karo Nikhil ke saath." />
+<meta property="og:image" content="https://nikhilexplainhouse.com/og-image.jpg" />
+<meta property="og:locale" content="hi_IN" />
+<meta property="og:site_name" content="Nikhil Explain House" />
+
+<!-- ── TWITTER / X CARD ── -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Nikhil Explain House | Movie Collection" />
+<meta name="twitter:description" content="Nikhil ki personal movie collection — ratings, genres aur reviews. Explore cinema with Nikhil Explain House." />
+<meta name="twitter:image" content="https://nikhilexplainhouse.com/og-image.jpg" />
+<meta name="twitter:site" content="@NikhilExplain" />
+
+<!-- ── SCHEMA.ORG STRUCTURED DATA ── -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Nikhil Explain House",
+  "url": "https://nikhilexplainhouse.com/",
+  "description": "Nikhil Explain House — Personal movie collection, ratings aur reviews by Nikhil.",
+  "author": {
+    "@type": "Person",
+    "name": "Nikhil",
+    "url": "https://nikhilexplainhouse.com/",
+    "sameAs": [
+      "https://www.youtube.com/@NikhilExplain",
+      "https://www.instagram.com/nikhilexplain"
+    ]
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nikhilexplainhouse.com/?search={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Nikhil",
+  "alternateName": "Nikhil Explain",
+  "url": "https://nikhilexplainhouse.com/",
+  "description": "Nikhil Explain House — movie reviews aur curated film collection.",
+  "knowsAbout": ["Movies", "Cinema", "Film Reviews", "Entertainment"],
+  "sameAs": [
+    "https://www.youtube.com/@NikhilExplain",
+    "https://www.instagram.com/nikhilexplain"
+  ]
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #18181f;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.14);
+    --accent: #e8b84b;
+    --accent2: #c9923a;
+    --text: #f0eee8;
+    --muted: #7a7875;
+    --muted2: #55534f;
+    --card-hover: rgba(232,184,75,0.06);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Subtle grain overlay */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    opacity: 0.4;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 900;
+    letter-spacing: -0.5px; color: var(--text);
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .logo span {
+    color: var(--accent);
+  }
+
+  .logo-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+    animation: pulse-dot 2.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+
+  .nav-links {
+    display: flex; align-items: center; gap: 2rem; list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted); font-size: 14px; font-weight: 400;
+    text-decoration: none; transition: color 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+  .nav-right {
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  .btn-download {
+    display: block; width: 100%;
+    background: var(--accent); color: #1a1200;
+    border: none; border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 600;
+    padding: 9px 0; cursor: pointer;
+    text-align: center; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.02em;
+    margin-top: 10px;
+  }
+
+  .btn-download:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-download:active { transform: scale(0.97); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; z-index: 1;
+    padding: 5rem 2rem 3.5rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(232,184,75,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1.2rem;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(40px, 7vw, 72px);
+    font-weight: 900; line-height: 1.05;
+    letter-spacing: -1px; color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 em {
+    font-style: italic; color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 15px; color: var(--muted); max-width: 420px;
+    margin: 0 auto 2.5rem; line-height: 1.7;
+  }
+
+  .hero-stats {
+    display: flex; justify-content: center; gap: 3rem;
+    font-size: 13px;
+  }
+
+  .hstat { text-align: center; }
+  .hstat-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 700; color: var(--text);
+    display: block;
+  }
+  .hstat-label { color: var(--muted); margin-top: 3px; }
+
+  /* ── MAIN CONTENT ── */
+  .container {
+    max-width: 1300px; margin: 0 auto;
+    padding: 2.5rem 2rem;
+    position: relative; z-index: 1;
+  }
+
+  /* ── TOOLBAR ── */
+  .toolbar {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px; margin-bottom: 2rem;
+  }
+
+  .genre-pills {
+    display: flex; gap: 6px; flex-wrap: wrap;
+  }
+
+  .pill {
+    font-size: 12px; font-weight: 400;
+    padding: 5px 14px; border-radius: 20px;
+    border: 1px solid var(--border2);
+    background: transparent; color: var(--muted);
+    cursor: pointer; transition: all 0.18s;
+  }
+
+  .pill:hover { border-color: var(--accent); color: var(--text); }
+
+  .pill.active {
+    background: var(--accent); color: #1a1200;
+    border-color: var(--accent); font-weight: 500;
+  }
+
+  .search-wrap {
+    position: relative;
+  }
+
+  .search-wrap svg {
+    position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
+    width: 15px; height: 15px; stroke: var(--muted); fill: none;
+    pointer-events: none;
+  }
+
+  #search-input {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; padding: 8px 14px 8px 34px;
+    width: 220px; outline: none; transition: border 0.2s;
+  }
+
+  #search-input:focus { border-color: var(--accent); }
+  #search-input::placeholder { color: var(--muted2); }
+
+  /* ── MOVIES GRID ── */
+  .movies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .movie-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.22s cubic-bezier(.22,.68,0,1.2), border-color 0.2s, box-shadow 0.2s;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .movie-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(232,184,75,0.3);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(232,184,75,0.12);
+    background: var(--card-hover);
+  }
+
+  .thumb-wrap {
+    position: relative; width: 100%; padding-bottom: 150%;
+    background: var(--bg3); overflow: hidden;
+  }
+
+  .thumb-wrap img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .movie-card:hover .thumb-wrap img { transform: scale(1.04); }
+
+  .thumb-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,10,15,0.9) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .thumb-placeholder {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 10px; color: var(--muted2);
+  }
+
+  .thumb-placeholder svg { width: 36px; height: 36px; stroke: var(--muted2); fill: none; }
+  .thumb-placeholder span { font-size: 11px; }
+
+  .rating-badge {
+    position: absolute; top: 10px; right: 10px;
+    background: rgba(10,10,15,0.8);
+    border: 1px solid rgba(232,184,75,0.35);
+    color: var(--accent); font-size: 11px; font-weight: 500;
+    padding: 3px 8px; border-radius: 20px;
+    backdrop-filter: blur(6px);
+  }
+
+  .card-body {
+    padding: 12px 14px 14px;
+  }
+
+  .card-title {
+    font-size: 14px; font-weight: 500; color: var(--text);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    margin-bottom: 4px;
+  }
+
+  .card-meta {
+    font-size: 12px; color: var(--muted);
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .genre-tag {
+    display: inline-flex; align-items: center;
+    font-size: 10px; font-weight: 500; letter-spacing: 0.04em;
+    padding: 3px 8px; border-radius: 4px;
+    text-transform: uppercase;
+  }
+
+  /* Genre colors */
+  .g-sci-fi     { background: rgba(139,92,246,0.15); color: #c4b5fd; }
+  .g-thriller   { background: rgba(234,179,8,0.12);  color: #fde047; }
+  .g-drama      { background: rgba(34,197,94,0.1);   color: #86efac; }
+  .g-action     { background: rgba(239,68,68,0.12);  color: #fca5a5; }
+  .g-animation  { background: rgba(14,165,233,0.12); color: #7dd3fc; }
+  .g-romance    { background: rgba(236,72,153,0.12); color: #f9a8d4; }
+  .g-horror     { background: rgba(239,68,68,0.15);  color: #ff8a80; }
+  .g-comedy     { background: rgba(251,146,60,0.12); color: #fdba74; }
+
+
+
+
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    font-size: 12px; color: var(--muted2);
+    position: relative; z-index: 1;
+  }
+
+  footer span { color: var(--accent); }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center; padding: 4rem 1rem;
+    color: var(--muted2);
+  }
+
+  .empty-state svg { width: 48px; margin: 0 auto 1rem; stroke: var(--muted2); fill: none; display: block; }
+  .empty-state p { font-size: 14px; }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 3px; }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    nav { padding: 0 1rem; }
+    .nav-links { display: none; }
+    .hero { padding: 3rem 1rem 2rem; }
+    .hero-stats { gap: 1.5rem; }
+    .container { padding: 1.5rem 1rem; }
+    .movies-grid { grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 14px; }
+  }
+</style>
 </head>
 <body>
+
+<!-- Hidden SEO keywords for crawlers -->
+<div style="position:absolute;width:1px;height:1px;overflow:hidden;opacity:0;" aria-hidden="true">
+  Nikhil Explain House, Nikhil Explain movies, Nikhil movie collection, Nikhil explain YouTube channel, movie reviews by Nikhil, best movies Hindi
+</div>
 <nav>
-  <a href="index.html" class="logo">Nikhil <span>Explain</span> House</a>
+  <div class="logo">
+    <div class="logo-dot"></div>
+    Nikhil <span>Explain House</span>
+  </div>
   <ul class="nav-links">
-    <li><a href="index.html" class="active">Home</a></li>
-    <li><a href="portfolio.html">Movies</a></li>
-    <li><a href="new.html">New</a></li>
-    <li><a href="about.html">About</a></li>
+    <li><a href="#" class="active">Collection</a></li>
+    <li><a href="#">Watchlist</a></li>
+    <li><a href="#">Discover</a></li>
+    <li><a href="#">About</a></li>
   </ul>
-  <div class="search-bar">
-    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input type="text" placeholder="Search movies..." id="searchInput" oninput="filterMovies()"/>
-  </div>
+  <div class="nav-right"></div>
 </nav>
-<div class="hero">
-  <div class="hero-bg"></div><div class="hero-grid"></div>
-  <div class="hero-content">
-    <div class="hero-tag">🎬 Free Movies</div>
-    <h1>Watch, Enjoy &<br/>It's Totally Free</h1>
-    <p>Welcome to Nikhil Explain House! All movies are available for free on YouTube. No subscription, no payment required.</p>
-    <div class="hero-btns">
-      <button class="btn-primary" onclick="document.querySelector('.movie-grid').scrollIntoView({behavior:'smooth'})">▶ Browse Movies</button>
-      <button class="btn-ghost" onclick="document.getElementById('searchInput').focus()">🔍 Search</button>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Nikhil Explain House — Personal Portfolio</p>
+  <h1>Welcome to <em>Nikhil's</em><br>Movie World</h1>
+  <p class="hero-sub">Nikhil ki personal movie collection — curated, rated, aur explained with passion.</p>
+  <div class="hero-stats">
+    <div class="hstat"><span class="hstat-val" id="stat-total">10</span><div class="hstat-label">Films</div></div>
+    <div class="hstat"><span class="hstat-val" id="stat-avg">8.6</span><div class="hstat-label">Avg Rating</div></div>
+    <div class="hstat"><span class="hstat-val" id="stat-genres">5</span><div class="hstat-label">Genres</div></div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="container">
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <div class="genre-pills" id="genre-pills"></div>
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="search-input" placeholder="Search movies..." oninput="renderGrid()" />
     </div>
   </div>
-</div>
-<div class="section"><div class="section-header"><span class="section-title">Browse by Genre</span><div class="section-line"></div></div></div>
-<div class="genre-pills">
-  <div class="pill active" onclick="filterByGenre('All',this)">🌟 All</div>
-  <div class="pill" onclick="filterByGenre('Action',this)">💥 Action</div>
-  <div class="pill" onclick="filterByGenre('Comedy',this)">😂 Comedy</div>
-  <div class="pill" onclick="filterByGenre('Drama',this)">🎭 Drama</div>
-  <div class="pill" onclick="filterByGenre('Thriller',this)">🔥 Thriller</div>
-  <div class="pill" onclick="filterByGenre('Horror',this)">👻 Horror</div>
-  <div class="pill" onclick="filterByGenre('Romance',this)">❤️ Romance</div>
-  <div class="pill" onclick="filterByGenre('Family',this)">👨‍👩‍👧 Family</div>
-</div>
-<div class="section"><div class="section-header"><span class="section-title">All Movies</span><div class="section-line"></div><span class="section-badge">Free on YouTube</span></div></div>
-<div class="movie-grid" id="movieGrid"></div>
-<div class="modal-overlay" id="modal" onclick="closeModal(event)">
-  <div class="modal">
-    <div class="modal-video" id="modalVideo"></div>
-    <div class="modal-body">
-      <div class="modal-header"><div class="modal-title" id="modalTitle"></div><button class="modal-close" onclick="closeModalBtn()">✕</button></div>
-      <div class="modal-tags" id="modalTags"></div>
-      <div class="modal-desc" id="modalDesc"></div>
-    </div>
-  </div>
-</div>
+
+  <!-- GRID -->
+  <div class="movies-grid" id="movies-grid"></div>
+</main>
+
+<!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Nikhil <span>Explain</span> House</div>
-  <div class="footer-links"><a href="privacy-policy.html">Privacy Policy</a><a href="about.html">About</a></div>
-  <div style="font-size:.75rem;color:var(--muted)">All movies are free on YouTube 🎬</div>
+  Made with <span>♥</span> by Nikhil &nbsp;·&nbsp; Nikhil Explain House &copy; 2025
 </footer>
-<script src="movies-data.js"></script>
+
+
+
 <script>
-  let activeGenre='All',searchTerm='';
-  function renderMovies(data){
-    const f=data.filter(m=>(activeGenre==='All'||m.genre===activeGenre)&&m.title.toLowerCase().includes(searchTerm.toLowerCase()));
-    document.getElementById('movieGrid').innerHTML=f.length===0?`<div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:60px 0">No movies found 😕</div>`:f.map(m=>`<div class="movie-card" onclick="openModal(${m.id})"><div class="movie-thumb"><div class="movie-thumb-placeholder" style="background:${m.bg}">${m.emoji}</div><div class="play-overlay"><div class="play-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="free-badge">FREE</div></div><div class="movie-info"><div class="movie-title">${m.title}</div><div class="movie-meta"><span class="rating">⭐ ${m.rating}</span><span>${m.year}</span></div><div class="movie-genre">${m.genre}</div></div></div>`).join('');
+const GENRE_CLASS = {
+  'Sci-Fi':'g-sci-fi','Thriller':'g-thriller','Drama':'g-drama',
+  'Action':'g-action','Animation':'g-animation','Romance':'g-romance',
+  'Horror':'g-horror','Comedy':'g-comedy'
+};
+
+// =====================================================================
+// MOVIES DATA — Sirf yahan edit karo
+// url       = thumbnail image ka link (ya local path)
+// downloadLink = "Download Now" button ka link (Telegram, Drive, etc.)
+// =====================================================================
+let movies = [
+  { id:1,  title:'Inception',             year:2010, genre:'Sci-Fi',    rating:8.8,
+    url:'https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg',
+    downloadLink:'https://YOUR-DOWNLOAD-LINK-1.com' },
+
+  { id:2,  title:'Parasite',              year:2019, genre:'Thriller',  rating:8.5,
+    url:'https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY0LWE2ZTEtNThkZjQwNTIxNWU5L2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg',
+    downloadLink:'https://YOUR-DOWNLOAD-LINK-2.com' },
+
+  { id:3,  title:'The Dark Knight',       year:2008, genre:'Action',    rating:9.0,
+    url:'https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_SX300.jpg',
+    downloadLink:'https://YOUR-DOWNLOAD-LINK-3.com' },
+
+  { id:4,  title:'Interstellar',          year:2014, genre:'Sci-Fi',    rating:8.6,
+    url:'https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg',
+    downloadLink:'https://YOUR-DOWNLOAD-LINK-4.com' },
+
+  { id:5,  title:"Schindler's List",      year:1993, genre:'Drama',     rating:9.0,
+    url:'https://m.media-amazon.com/images/M/MV5BNDE4OTU5OTktYjdmNS00Mjg1LTkwNTItMjI4MTZhNTllYWUyXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg',
+    downloadLink:'https://YOUR-DOWNLOAD-LINK-5.com' },
+
+  { id:6,  title:'Spirited Away',         year:2001, genre:'Animation', rating:8.6,
+    url:'https://m.media-amazon.com/images/M/MV5BMjlmZmI5MDctNDE2YS00YWE0LWE5ZWItZDBhYWQ0NTcxNWRhXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg',
+    downloadLink:'https://YOUR-DOWNLOAD-LINK-6.com' },
+
+  { id:7,  title:'Pulp Fiction',          year:1994, genre:'Thriller',  rating:8.9,
+    url:'https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2ItYzViMjE3YzI5MjljXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg',
+    downloadLink:'https://YOUR-DOWNLOAD-LINK-7.com' },
+
+  { id:8,  title:'The Godfather',         year:1972, genre:'Drama',     rating:9.2,
+    url:'https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg',
+    downloadLink:'https://YOUR-DOWNLOAD-LINK-8.com' },
+
+  { id:9,  title:'Dune: Part Two',        year:2024, genre:'Sci-Fi',    rating:8.5,
+    url:'https://m.media-amazon.com/images/M/MV5BN2QyZGU4ZDctOWMzMy00NTc5LThlOGQtODhmNDI1NmY5ZTAyXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_SX300.jpg',
+    downloadLink:'https://YOUR-DOWNLOAD-LINK-9.com' },
+
+  { id:10, title:'Everything Everywhere', year:2022, genre:'Action',    rating:7.8,
+    url:'https://m.media-amazon.com/images/M/MV5BYTdiOTIyZTQtNmQ1OS00NjZlLWIyMTgtYzk5Y2M3ZDVmMDk1XkEyXkFqcGdeQXVyMTAzMDg4NzU0._V1_SX300.jpg',
+    downloadLink:'https://YOUR-DOWNLOAD-LINK-10.com' },
+];
+
+let activeGenre = 'All';
+
+function slugGenre(g) { return g.toLowerCase().replace(/[^a-z]/g,''); }
+
+function getGenres() {
+  return ['All', ...[...new Set(movies.map(m => m.genre))]];
+}
+
+function renderPills() {
+  const wrap = document.getElementById('genre-pills');
+  wrap.innerHTML = getGenres().map(g =>
+    `<button class="pill ${g===activeGenre?'active':''}" onclick="filterGenre('${g}')">${g}</button>`
+  ).join('');
+}
+
+function filterGenre(g) {
+  activeGenre = g;
+  renderPills();
+  renderGrid();
+}
+
+function renderGrid() {
+  const query = document.getElementById('search-input').value.toLowerCase().trim();
+  let filtered = movies;
+  if (activeGenre !== 'All') filtered = filtered.filter(m => m.genre === activeGenre);
+  if (query) filtered = filtered.filter(m => m.title.toLowerCase().includes(query) || String(m.year).includes(query));
+
+  const grid = document.getElementById('movies-grid');
+
+  let html = filtered.map((m, i) => {
+    const gc = GENRE_CLASS[m.genre] || 'g-drama';
+    const delay = `animation-delay: ${i * 0.04}s`;
+    const img = m.url
+      ? `<img src="${m.url}" alt="${m.title}" loading="lazy"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+         <div class="thumb-overlay"></div>
+         <div class="thumb-placeholder" style="display:none;">
+           <svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+           <span>No image</span>
+         </div>`
+      : `<div class="thumb-placeholder">
+           <svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+           <span>No image</span>
+         </div>`;
+
+    const dlBtn = m.downloadLink && m.downloadLink !== '#'
+      ? `<a class="btn-download" href="${m.downloadLink}" target="_blank" rel="noopener">⬇ Download Now</a>`
+      : `<span class="btn-download" style="opacity:0.35;cursor:default;">⬇ Download Now</span>`;
+
+    return `
+    <article class="movie-card" style="${delay}" title="${m.title}">
+      <div class="thumb-wrap">
+        ${img}
+        <div class="rating-badge">★ ${m.rating.toFixed(1)}</div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">${m.title}</div>
+        <div class="card-meta">
+          <span>${m.year}</span>
+        </div>
+        <span class="genre-tag ${gc}">${m.genre}</span>
+        ${dlBtn}
+      </div>
+    </article>`;
+  }).join('');
+
+  if (!filtered.length) {
+    html = `<div class="empty-state">
+      <svg viewBox="0 0 24 24" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <p>No movies found. Try a different search or genre.</p>
+    </div>`;
   }
-  function filterByGenre(g,el){activeGenre=g;document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));el.classList.add('active');renderMovies(window.moviesData);}
-  function filterMovies(){searchTerm=document.getElementById('searchInput').value;renderMovies(window.moviesData);}
-  function openModal(id){const m=window.moviesData.find(x=>x.id===id);document.getElementById('modalTitle').textContent=m.title;document.getElementById('modalDesc').textContent=m.desc;document.getElementById('modalTags').innerHTML=m.tags.map(t=>`<span class="modal-tag">${t}</span>`).join('');document.getElementById('modalVideo').innerHTML=`<iframe src="https://www.youtube.com/embed/${m.youtubeId}?autoplay=1" allow="autoplay; fullscreen" allowfullscreen></iframe>`;document.getElementById('modal').classList.add('open');document.body.style.overflow='hidden';}
-  function closeModalBtn(){document.getElementById('modal').classList.remove('open');document.getElementById('modalVideo').innerHTML='';document.body.style.overflow='';}
-  function closeModal(e){if(e.target===document.getElementById('modal'))closeModalBtn();}
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModalBtn();});
-  renderMovies(window.moviesData);
+
+  grid.innerHTML = html;
+  updateStats();
+}
+
+function updateStats() {
+  document.getElementById('stat-total').textContent = movies.length;
+  const avg = movies.reduce((s,m)=>s+m.rating,0)/movies.length;
+  document.getElementById('stat-avg').textContent = avg.toFixed(1);
+  document.getElementById('stat-genres').textContent = [...new Set(movies.map(m=>m.genre))].length;
+}
+
+
+
+// Init
+renderPills();
+renderGrid();
 </script>
 </body>
 </html>
