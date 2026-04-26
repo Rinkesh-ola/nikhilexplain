@@ -7,9 +7,9 @@ window.moviesData = [
     genre: "Action",
     year: "1975",
     rating: "9.1",
-    emoji: "🏜️",
+    img: "penguin.jpg",
     bg: "linear-gradient(135deg,#8B4513,#D2691E)",
-    youtubeId: "8s9f5ISWy50",
+    link: "https://hubcloud.foo/drive/2nxt1zyzltpnswf",
     isNew: false,
     desc: "The most iconic Bollywood action film ever made. The friendship of Jai and Veeru, the terror of Gabbar Singh — a timeless classic.",
     tags: ["Hindi", "Action", "Classic", "1975"]
